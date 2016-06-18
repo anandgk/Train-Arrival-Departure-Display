@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>JavaScript/CSS3 Departure Board</title>
+		<link rel="stylesheet" href="assets/css/departure-board.css" />
+	<style type="text/css">
+		
+	#arr-dep-board	{
+		font-size: 40px;
+	}
+
+	</style>
+
+	</head>
+
+	
+	<body>
+		<div id="arr-dep-board"></div>
+		
+		<script src="assets/js/departure-board.js"></script>
+		<script>
+		
+			var board = new DepartureBoard (document.getElementById ('arr-dep-board'), { rowCount: 2, letterCount: 25 }); 
+			board.setValue (['19:30 Acela Washington DC', '19:50 Regional Baltimore']);
+			
+			window.setTimeout (function () {
+			 	board.setValue (['  New York Penn Station','  Arrivals & Departures']);
+			}, 12000);
+
+		</script>
+	</body>
+</html>

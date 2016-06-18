@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schedule Display">
+    <meta name="author" content="Anand Gopalakrishnan">
+
+    <title>Arrivals Departures Display by Anand Gopalakrishnan</title>
+
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet"> 
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/departure-board.css" />
+
+</head>
+    <body>
+
+        <!-- Header -->
+        <header>
+            <!-- NO HEADER USED -->
+        </header>
+
+
+        <div class="container">
+            
+            <div class="dispboard">
+                <div id="arr-dep-board"></div>
+            </div>
+           
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                        <h3 class="panel-title">Current Schedule</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered schedule-table">
+                        <thead>
+                            <tr>
+                                <td>Train Name</td>
+                                <td>Destination</td> 
+                                <td>Frequency (Minutes)</td>
+                                <td>Next Arrival</td>
+                                <td>Minutes Away</td> 
+                                <td>Status</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Add Schedule</h3>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="trainname">Train Name</label>
+                            <input type="text" class="form-control" id="trainname" placeholder="Enter Train Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <input type="text" class="form-control" id="destination" placeholder="Destination">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstraintime">First Train Time (HH:MM)</label>
+                            <input type="text" class="form-control" id="firstraintime" placeholder="First Train Time">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="freqinmin">Frequency in Minutes</label>
+                            <input type="text" class="form-control" id="freqinmin" placeholder="Frequency in Minutes">
+                        </div>
+                          
+                        <button type="submit" class="btn btn-default" id="addSchedule">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <!-- NO FOOTER USED -->
+        </footer>
+        
+
+        <!-- External -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+        <script src="assets/js/departure-board.js"></script>
+
+        <!-- User defined -->
+        <script src="assets/js/traindisplay.js"></script> 
+        
+    </body>
+</html>
