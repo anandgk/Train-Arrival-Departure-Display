@@ -5,3 +5,19 @@
 .dispboard  {
     margin: 20px 0 20px 40px;
 }
+
+.panel-title  {
+  text-align: center;
+  font-size: 15px;
+}
+
+.tr-user-style > td {
+  text-align: center;
+  background-color: grey;
+  color:  #fff;
+}
+
+.panel-heading {
+  background-color: black !important;
+  color: #fff !important;
+}

@@ -2,11 +2,9 @@
 
     // Variable declaration
     var board = new DepartureBoard (document.getElementById ('arr-dep-board'), { rowCount: 2, letterCount: 25 }); 
-    var wordList = ['  Arrivals & Departures','Have a Wonderful Journey',['       Welcome  To', '  New York Penn Station']];
+    var wordList = ['  Arrivals & Departures',['Have a', '        Wonderful Journey'],['       Welcome  To', '  New York Penn Station']];
     var addData = new Firebase("https://fiery-fire-9725.firebaseio.com/");
-    var minutesTillTrain = "";
-    var nextTrain = "";
-    var trainStatus = "";
+    
 
     // Intial message display
     board.setValue (['       Welcome  To', '  New York Penn Station']);
@@ -55,15 +53,15 @@
             var timeRemainder = diffTime % srvfreqinmin;
 
             // Minutes for next train arrival
-            minutesTillTrain = srvfreqinmin - timeRemainder;
+            var minutesTillTrain = srvfreqinmin - timeRemainder;
 
             // Time in HH:MM for next train arrival
-            nextTrain = moment().add(minutesTillTrain, "minutes").format("hh:mm");
+            var nextTrain = moment().add(minutesTillTrain, "minutes").format("hh:mm");
 
             // Display status
-            rainStatus = "Ontime";
+            var trainStatus = "Ontime";
             
-            // Display the schulde in table
+            // Display the schdules in table
             $(".schedule-table > tbody").append("<tr><td>" + srvftrainname + "</td><td>" + srvfdestination + "</td><td>" + srvfreqinmin + "</td><td>" + nextTrain + "</td><td>" + minutesTillTrain + "</td><td>" + trainStatus + "</td></tr>");
 
         }, 
@@ -73,5 +71,49 @@
             console.log("The Firbase read failed: " + errorObject.code);
         }
     );
+
+    // Refresh schedules every 20 seconds
+    window.setInterval (function () {
+        addData.orderByChild("dateAdded").on("value", function(snapshot) {
+
+            // Empty data rows from schedule table
+            $(".schedule-table > tbody").empty();
+
+            
+            // Loop Firebase objects
+            snapshot.forEach(function(data) {
+                
+                // Get values from snapshot
+                var srvftrainname = data.val().trainname;
+                var srvfdestination = data.val().destination;
+                var srvfirstraintime = data.val().firstraintime;
+                var srvfreqinmin = data.val().freqinmin;
+                var trainStatus = "";
+
+                // Calculation for determinging minutes until next train and time in HH:MM of next train
+                var firstTimeConverted = moment(srvfirstraintime,"hh:mm").subtract(1, "years");
+                var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+                var timeRemainder = diffTime % srvfreqinmin;
+
+                // Minutes for next train arrival
+                var minutesTillTrain = srvfreqinmin - timeRemainder;
+
+                // If minutes to train arrival is <= 1 then show status as boarding otherwise ontime
+                if ( minutesTillTrain <= 1 )  {
+                    trainStatus = "Boarding";
+                } else {
+                    trainStatus = "Ontime";
+                }
+
+                // Time in HH:MM for next train arrival
+                var nextTrain = moment().add(minutesTillTrain, "minutes").format("hh:mm");
+
+                
+                // Display the schdules in table
+                $(".schedule-table > tbody").append("<tr><td>" + srvftrainname + "</td><td>" + srvfdestination + "</td><td>" + srvfreqinmin + "</td><td>" + nextTrain + "</td><td>" + minutesTillTrain + "</td><td>" + trainStatus + "</td></tr>");
+
+            });
+        });
+    }, 20000);
     
 })();
